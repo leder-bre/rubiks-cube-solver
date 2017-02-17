@@ -102,14 +102,6 @@ public class controller : MonoBehaviour {
 		int[,] temp_gameObjects = new int[6,8];
 		int sideNum = 0;
 		foreach (Transform aSide in cube) {	//Find each side
-			if (aSide != cube && aSide.gameObject.name != "Inside") {
-				for (int i = 1; i < aSide.childCount; i++) {
-					temp_gameObjects[sideNum,i-1] = (aSide.GetChild (i).gameObject.GetComponent<colorChange>().currentColor);
-				}
-				sideNum++;
-			}
-		}
-		foreach (Transform aSide in cube) {	//Find each side
 			int index1 = 0;
 			int index2 = 0;
 			switch (aSide.gameObject.name) {
@@ -135,37 +127,41 @@ public class controller : MonoBehaviour {
 			default:
 				break;
 			}
-			for (int i = 1; i < aSide.childCount; i++) {
-				switch (aSide.GetChild (i).gameObject.GetComponent<colorChange> ().name [7]) {
-				case '3':
-					index2 = 0;
-					break;
-				case '5':
-					index2 = 1;
-					break;
-				case '4':
-					index2 = 2;
-					break;
-				case '1':
-					index2 = 3;
-					break;
-				case '7':
-					index2 = 4;
-					break;
-				case '6':
-					index2 = 5;
-					break;
-				case '8':
-					index2 = 6;
-					break;
-				case '2':
-					index2 = 7;
-					break;
-				default:
-					break;
+			if (aSide != cube && aSide.gameObject.name != "Inside") {
+				for (int i = 1; i < aSide.childCount; i++) {
+					switch (aSide.GetChild (i).gameObject.GetComponent<colorChange> ().name [7]) {
+					case '3':
+						index2 = 0;
+						break;
+					case '5':
+						index2 = 1;
+						break;
+					case '4':
+						index2 = 2;
+						break;
+					case '1':
+						index2 = 3;
+						break;
+					case '7':
+						index2 = 4;
+						break;
+					case '6':
+						index2 = 5;
+						break;
+					case '8':
+						index2 = 6;
+						break;
+					case '2':
+						index2 = 7;
+						break;
+					default:
+						break;
+					}
+					aSide.GetChild (i).gameObject.GetComponent<colorChange> ().address0 = index1;
+					aSide.GetChild (i).gameObject.GetComponent<colorChange> ().address1 = index2;
+					temp_gameObjects[sideNum,i-1] = (aSide.GetChild (i).gameObject.GetComponent<colorChange>().currentColor);
 				}
-				aSide.GetChild (i).gameObject.GetComponent<colorChange> ().address0 = index1;
-				aSide.GetChild (i).gameObject.GetComponent<colorChange> ().address1 = index2;
+				sideNum++;
 			}
 		}
 		for (int i = 0; i < 6; i++) {
